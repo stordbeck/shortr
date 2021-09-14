@@ -1,0 +1,13 @@
+services:
+  db:
+    extends:
+      file: docker-compose.common.yml
+      service: db
+    ports:
+      - "5432:5432"
+  migrations:
+    extends:
+      file: docker-compose.common.yml
+      service: migrations
+    depends_on:
+      - db
