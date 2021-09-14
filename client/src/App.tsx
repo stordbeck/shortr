@@ -15,7 +15,7 @@ import { createSlug } from "./api";
 
 function App() {
   const [url, setUrl] = useState("");
-  const [slug, setSlug] = useState("");
+  const [shortUrl, setShortUrl] = useState("");
   const [error, setError] = useState<Error | null>(null);
   const [darkMode, setDarkMode] = useState(
     () =>
@@ -42,14 +42,6 @@ function App() {
       return false;
     }
   }, [url]);
-
-  const shortUrl = useMemo(() => {
-    if (!slug) {
-      return "";
-    }
-
-    return new URL(slug, window.location.origin).href;
-  }, [slug]);
 
   return (
     <div className="grid justify-center content-center min-h-screen bg-gradient-to-br from-green-50 to-green-100 dark:from-gray-800 dark:to-gray-900 text-gray-900 dark:text-gray-200">
@@ -87,7 +79,7 @@ function App() {
 
               createSlug(url)
                 .then((slug) => {
-                  setSlug(slug);
+                  setShortUrl(new URL(slug, window.location.origin).href);
                 })
                 .catch((error) => {
                   console.debug(error);
