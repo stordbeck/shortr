@@ -1,14 +1,14 @@
-import { Application, HttpError, Router, send, Status } from "./deps.ts";
+import {
+  Application,
+  HttpError,
+  HttpServerStd,
+  Router,
+  send,
+  Status,
+} from "./deps.ts";
 
-import { findUrlBySlug, findUrlByUrl, insertUrl } from "./db.ts";
+import { end, findUrlBySlug, findUrlByUrl, insertUrl } from "./db.ts";
 import generateRandomSlug from "./generate-random-slug.ts";
-
-// Create the oak app
-const app = new Application();
-
-app.addEventListener("listen", ({ port }) => {
-  console.log(`Listening on :${port}`);
-});
 
 // Define the routes
 const router = new Router();
@@ -56,6 +56,16 @@ router.all("/:slug", async (context) => {
   context.response.redirect(url.url);
 });
 
+// Create the oak app
+const app = new Application({
+  // TODO: remove once https://github.com/oakserver/oak/pull/389 is released (not in 9.0.0)
+  serverConstructor: HttpServerStd,
+});
+
+app.addEventListener("listen", ({ port }) => {
+  console.log(`Listening on :${port}`);
+});
+
 // Serve static files from the `public` directory
 app.use(async (context, next) => {
   try {
@@ -77,6 +87,8 @@ app.use(router.allowedMethods());
 
 if (import.meta.main) {
   await app.listen({ port: 8080 });
+
+  await end();
 }
 
 export { app };

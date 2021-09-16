@@ -18,8 +18,8 @@ services:
     build: .
     init: true
     environment:
-      - DB_HOSTNAME=db
-      - DB_USER=postgres
-      - DB_PASSWORD=$POSTGRES_PASSWORD
-      - DB_DATABASE=postgres
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGPASSWORD=$POSTGRES_PASSWORD
+      - PGDATABASE=postgres
     restart: on-failure

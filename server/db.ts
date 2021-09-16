@@ -1,11 +1,10 @@
 import { Pool } from "./deps.ts";
 
-const pool = new Pool({
-  hostname: Deno.env.get("DB_HOSTNAME")!,
-  user: Deno.env.get("DB_USER"),
-  password: Deno.env.get("DB_PASSWORD"),
-  database: Deno.env.get("DB_DATABASE"),
-}, 20);
+const pool = new Pool(
+  {},
+  20,
+  true,
+);
 
 interface Url {
   slug: string;
@@ -47,4 +46,8 @@ export async function insertUrl(url: Url): Promise<void> {
   } finally {
     client.release();
   }
+}
+
+export async function end() {
+  await pool.end();
 }
