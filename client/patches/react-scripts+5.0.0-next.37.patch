@@ -1,12 +1,43 @@
+diff --git a/node_modules/react-scripts/config/paths.js b/node_modules/react-scripts/config/paths.js
+index f4470a0..5eab897 100644
+--- a/node_modules/react-scripts/config/paths.js
++++ b/node_modules/react-scripts/config/paths.js
+@@ -108,6 +108,7 @@ module.exports = {
+   ownNodeModules: resolveOwn('node_modules'), // This is empty on npm 3
+   appTypeDeclarations: resolveApp('src/react-app-env.d.ts'),
+   ownTypeDeclarations: resolveOwn('lib/react-app.d.ts'),
++  getPostCSSPlugins: resolveApp('get-postcss-plugins.js'),
+ };
+ 
+ const ownPackageJson = require('../package.json');
 diff --git a/node_modules/react-scripts/config/webpack.config.js b/node_modules/react-scripts/config/webpack.config.js
-index 6bc8b2c..a0f02b6 100644
+index 6bc8b2c..25e7eec 100644
 --- a/node_modules/react-scripts/config/webpack.config.js
 +++ b/node_modules/react-scripts/config/webpack.config.js
-@@ -133,6 +133,7 @@ module.exports = function (webpackEnv) {
+@@ -38,6 +38,8 @@ const getCacheIdentifier = require('react-dev-utils/getCacheIdentifier');
+ // @remove-on-eject-end
+ const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
+ 
++const getPostCSSPlugins = require(paths.getPostCSSPlugins);
++
+ // Source maps are resource heavy and can cause out of memory issue for large source files.
+ const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+ 
+@@ -132,7 +134,7 @@ module.exports = function (webpackEnv) {
+             // Necessary for external CSS imports to work
              // https://github.com/facebook/create-react-app/issues/2677
              ident: 'postcss',
-             plugins: [
-+              'tailwindcss',
+-            plugins: [
++            plugins: getPostCSSPlugins([
                'postcss-flexbugs-fixes',
                [
                  'postcss-preset-env',
+@@ -147,7 +149,7 @@ module.exports = function (webpackEnv) {
+               // so that it honors browserslist config in package.json
+               // which in turn let's users customize the target behavior as per their needs.
+               'postcss-normalize',
+-            ],
++            ]),
+           },
+           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
+         },
