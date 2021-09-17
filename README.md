@@ -8,15 +8,22 @@ Prerequisites: `docker` && `docker-compose`.
 
 To run, use `make`:
 
-- `make setup` - prepare a fresh database
+### Scripts
 
-Now that a database is up and running:
-
-- `make server` to run the application (accessible at `:8080`)
-  - just make sure to wait for the client to finish building before accessing the application
-- `make test` to run tests
+- `make setup`
+  - Prepares a fresh database. Run this before `make server` or `make test`.
+- `make server`
+  - Runs the application.
+  - Wait for the client build to finish (the client container will exit when it is done building)
+  - The application will be accessible at `:8080`
+- `make test`
+  - Runs server tests and client tests
+- `make teardown`
+  - When you're all done, this will tear down the database.
 
 ## Developing
+
+To develop, there are three pieces of the application that you need to run: the database, the server, and the client.
 
 ### Database
 
@@ -26,7 +33,9 @@ The application uses a postgres database. You can run one with `docker-compose`:
 docker-compose -f docker-compose.db.yml up
 ```
 
-Database migrations will automatically be applied. If you want to start from a fresh instance:
+This starts the database and applies migrations automatically. You will leave this running while you develop the application.
+
+If you want to start from scratch (will not use any data from previous runs):
 
 ```sh
 docker-compose -f docker-compose.db.yml up -V
