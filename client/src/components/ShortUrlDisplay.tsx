@@ -38,8 +38,11 @@ export default function ShortUrlDisplay({
           aria-label="Short url"
           readOnly
           defaultValue={shortUrl}
-          onFocus={(e) => {
-            e.target.setSelectionRange(0, e.target.value.length);
+          onClick={(e) => {
+            (e.target as HTMLInputElement).setSelectionRange(
+              0,
+              shortUrl.length
+            );
           }}
         />
         <Button
