@@ -12,6 +12,7 @@ services:
           "-url=jdbc:postgresql://db/",
           "-user=postgres",
           "-password=postgres",
+          "-connectRetries=60",
           "migrate",
       ]
     volumes:
