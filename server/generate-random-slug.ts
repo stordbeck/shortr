@@ -41,7 +41,6 @@ export default function generateRandomSlug(): string {
   view.setUint8(4, randomBytes[0]);
   view.setUint8(5, randomBytes[1]);
 
-  new Uint8Array();
   // Encode the byte array
   return encodeBase64Url(new Uint8Array(slugBuffer));
 }

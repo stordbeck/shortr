@@ -2,24 +2,20 @@ services:
   db:
     image: postgres
     environment:
-      - POSTGRES_PASSWORD
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
   migrations:
     image: flyway/flyway
     command:
       [
           "-url=jdbc:postgresql://db/",
           "-user=postgres",
-          "-password=$POSTGRES_PASSWORD",
+          "-password=postgres",
           "migrate",
       ]
     volumes:
       - "./db/sql:/flyway/sql"
-  server:
-    build: .
-    init: true
-    environment:
-      - PGHOST=db
-      - PGUSER=postgres
-      - PGPASSWORD=$POSTGRES_PASSWORD
-      - PGDATABASE=postgres
-    restart: on-failure
+    depends_on:
+      - db
+

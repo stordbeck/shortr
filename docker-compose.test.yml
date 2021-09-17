@@ -1,0 +1,12 @@
+services:
+  server_test:
+    build: ./server
+    command: ["test", "--allow-all"]
+    environment:
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - PGDATABASE=postgres
+  client_test:
+    build: ./client
+    command: ["npm", "test", "--", "--watchAll=false"]

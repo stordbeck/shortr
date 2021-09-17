@@ -1,0 +1,22 @@
+services:
+  server:
+    build: ./server
+    init: true
+    volumes:
+      - public:/public
+    environment:
+      - PGHOST=db
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - PGDATABASE=postgres
+    command: ["run", "--allow-all", "server.ts"]
+    ports:
+      - "8080:8080"
+    restart: on-failure
+  client:
+    build: ./client
+    command: ["npm", "run", "build"]
+    volumes:
+      - public:/app/build
+volumes:
+  public:
