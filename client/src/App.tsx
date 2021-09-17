@@ -115,26 +115,25 @@ function App() {
 
   return (
     <>
-      <div className="absolute top-1 right-1">
-        <button
-          className={`p-2 ${
-            darkMode ? "hover:text-yellow-200" : "hover:text-indigo-600"
-          }`}
-          onClick={() => {
-            const nextDarkMode = !darkMode;
-            setDarkMode(nextDarkMode);
-            localStorage.setItem("theme", nextDarkMode ? "dark" : "light");
-          }}
-        >
-          {darkMode ? (
-            <SunIcon className="w-6 h-6" />
-          ) : (
-            <MoonIcon className="w-6 h-6" />
-          )}
-        </button>
-      </div>
+      <button
+        className={`absolute top-1 right-1 p-2 ${
+          darkMode ? "hover:text-yellow-200" : "hover:text-indigo-600"
+        }`}
+        onClick={() => {
+          const nextDarkMode = !darkMode;
+          setDarkMode(nextDarkMode);
+          localStorage.setItem("theme", nextDarkMode ? "dark" : "light");
+        }}
+        aria-label="Change theme"
+      >
+        {darkMode ? (
+          <SunIcon className="w-6 h-6" />
+        ) : (
+          <MoonIcon className="w-6 h-6" />
+        )}
+      </button>
 
-      <div className="max-w-2xl mx-auto px-8 flex flex-col justify-center min-h-screen">
+      <div className="max-w-2xl mx-auto px-2 flex flex-col justify-center min-h-screen">
         <header className="mb-2">
           <Logo />
         </header>
