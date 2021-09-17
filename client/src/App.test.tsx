@@ -36,19 +36,19 @@ afterAll(() => {
 test("the form can't be submitted unless the url is valid", () => {
   render(<App />);
 
-  expect(ui.submitButton.get()).toBeDisabled();
+  expect(ui.submitButton.get()).toHaveAttribute("aria-disabled", "true");
 
   // Enter "foo" into the url input
   userEvent.type(ui.urlInput.get(), "foo");
 
   // The button should still be disabled
-  expect(ui.submitButton.get()).toBeDisabled();
+  expect(ui.submitButton.get()).toHaveAttribute("aria-disabled", "true");
 
   userEvent.clear(ui.urlInput.get());
   userEvent.type(ui.urlInput.get(), "http://www.example.com");
 
   // The button should still be disabled
-  expect(ui.submitButton.get()).not.toBeDisabled();
+  expect(ui.submitButton.get()).not.toHaveAttribute("aria-disabled", "true");
 });
 
 test("submitting a valid url shows the shortened url", async () => {
