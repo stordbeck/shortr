@@ -13,7 +13,7 @@ To run, use `make`:
 Now that a database is up and running:
 
 - `make server` to run the application (accessible at `:8080`)
-    - just make sure to wait for the client to finish building before accessing the application
+  - just make sure to wait for the client to finish building before accessing the application
 - `make test` to run tests
 
 ## Developing
@@ -43,15 +43,7 @@ touch db/sql/V$(date +%s)__migration_name.sql
 
 ### Server
 
-The server is written in TypeScript and run with `deno`. It uses the [oak](https://oakserver.github.io/oak/) framework.
-To run, first install `deno`: https://deno.land/#installation.
-
-To run the server in watch mode:
-
-```sh
-cd server
-PGUSER=postgres PGPASSWORD=postgres PGDATABASE=postgres deno run --allow-all --watch server.ts
-```
+See [`server/README.md`](server/README.md)
 
 ### Client
 
@@ -63,5 +55,4 @@ npm install
 npm start
 ```
 
-During development, you will have two servers running. The backend server and a frontend, development server.
-The development server is configured to proxy requests to the backend server (see `client/src/setupProxy.js`)
+For more details, see [`client/README.md`](client/README.md)
