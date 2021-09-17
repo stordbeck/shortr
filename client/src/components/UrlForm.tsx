@@ -54,13 +54,16 @@ export default function UrlForm({
           }}
           placeholder="Enter your long url..."
           autoFocus
+          aria-invalid={showError && !isUrlValid ? true : undefined}
         />
 
         <Button disabled={!isUrlValid}>Shorten</Button>
       </form>
 
       {showError && !isUrlValid && (
-        <p className="mt-2 text-red-700">Invalid url</p>
+        <p className="mt-2 text-red-700" role="alert">
+          Invalid url
+        </p>
       )}
     </>
   );

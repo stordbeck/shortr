@@ -26,7 +26,7 @@ const Button = React.forwardRef<Ref, React.ComponentProps<"button">>(
       <button
         ref={ref}
         className={classes.join(" ")}
-        aria-disabled={disabled}
+        aria-disabled={disabled ? true : undefined}
         {...props}
       >
         {props.children}
