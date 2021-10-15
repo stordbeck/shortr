@@ -1,7 +1,7 @@
 import { Pool } from "./deps.ts";
 
 const pool = new Pool(
-  {},
+  Deno.env.get("DATABASE_URL") || {},
   20,
   true,
 );
